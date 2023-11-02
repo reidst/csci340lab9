@@ -19,15 +19,14 @@ namespace HendrixUniversity.Pages.Courses
             _context = context;
         }
 
-        public IList<Course> Course { get;set; } = default!;
+        public IList<Course> Courses { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Courses != null)
-            {
-                Course = await _context.Courses
-                .Include(c => c.Department).ToListAsync();
-            }
+            Courses = await _context.Courses
+                .Include(c => c.Department)
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }
